@@ -1,8 +1,7 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 module.exports = {
-  entry: './client/index.js',
+  entry: ['babel-polyfill', './client/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -48,12 +47,6 @@ module.exports = {
     }
     ]
   },
-  devtool: 'eval-source-map',
+  devtool: 'eval-source-map'
 
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './www/index.html',
-      filename: './index.html'
-    })
-  ]
 }
