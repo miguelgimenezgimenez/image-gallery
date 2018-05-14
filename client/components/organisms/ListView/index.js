@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { List } from 'material-ui/List'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
 import Item from '../../molecules/Item'
-import { createList } from '../../../../utils/createList'
 
 class ListView extends Component {
   constructor (props) {
@@ -23,16 +21,8 @@ class ListView extends Component {
     })
   }
 
-  getNextLetter () {
-    const { storeList, dispatch } = this.props
-    const cb = (letter) => {
-      if (!storeList[letter]) {
-        return this.props.action(dispatch, letter)
-      }
-      return null
-    }
-
-    createList(null, cb)
+  getNextSet () {
+    const { dispatch } = this.props
   }
 
   handleScroll (event) {
@@ -55,7 +45,12 @@ class ListView extends Component {
     if (list.length) {
       while (index < endIndex) {
         if (list[index]) {
-          items = items.push(<Item type={this.props.type} key={index} style={{ height: rowHeight }} item={list[index]} />)
+          items = items.push(<Item
+            type={this.props.type}
+            key={index}
+            style={{ height: rowHeight }}
+            item={list[index]}
+          />)
         } else {
           break
         }
@@ -65,8 +60,8 @@ class ListView extends Component {
 
     const { loading } = this.props
     // Lazy load the next set of items
-    if (!loading && list.length - endIndex < 100) {
-      this.getNextLetter()
+    if (!loading && list.length - endIndex < 10) {
+      this.getNextSet()
     }
     return (
       <div
@@ -93,8 +88,8 @@ ListView.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  storeList: state[ownProps.type].list,
-  loading: state[ownProps.type].loading
+  list: state.photo.list,
+  loading: state.photo.loading
 
 })
-export default (connect(mapStateToProps)(ListView))
+export default connect(mapStateToProps)(ListView)
