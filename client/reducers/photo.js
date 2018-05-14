@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
   error: null,
   list: [],
@@ -14,7 +16,8 @@ const setLoading = (state, loading) => ({ ...state,
 })
 
 const setPhotoList = (state, data) => {
-  const list = [...state.list].concat(data)
+  const newPhotos = _.get(data, 'photos.photo', [])
+  const list = [...state.list].concat(newPhotos)
   return { ...state,
     list,
     loading: false,

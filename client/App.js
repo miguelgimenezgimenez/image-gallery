@@ -1,25 +1,19 @@
 
 import React, { Component } from 'react'
-import io from 'socket.io-client'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-export default class App extends Component {
-  componentDidMount () {
-    this.initSocket()
-  }
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import ListView from './components/organisms/ListView/index'
 
-  initSocket () {
-    const socket = io('http://localhost:3000')
+const muiTheme = getMuiTheme({})
 
-    socket.emit('chat message', 'aasdasdasdasdasadsasfrqw')
-    socket.on('connect', () => {
-      console.log('connected')
-    })
-    console.log('mounteweed', socket)
-  }
-
+class App extends Component {
   render () {
     return (
-      <div  />
-    )
+      <MuiThemeProvider muiTheme={muiTheme} >
+        <ListView rowHeight={30} />
+      </MuiThemeProvider>)
   }
 }
+
+export default App

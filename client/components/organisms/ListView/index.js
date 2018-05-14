@@ -45,7 +45,8 @@ class ListView extends Component {
     if (list.length) {
       while (index < endIndex) {
         if (list[index]) {
-          items = items.push(<Item
+          console.log(items, 'itemsss')
+          items = items.concat(<Item
             type={this.props.type}
             key={index}
             style={{ height: rowHeight }}
