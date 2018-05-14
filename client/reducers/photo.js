@@ -1,8 +1,8 @@
 const INITIAL_STATE = {
   error: null,
-  list: {},
+  list: [],
   loading: false,
-  current: {}
+  currentPage: 1
 }
 const setError = (state, error) => ({ ...state,
   error,
@@ -13,36 +13,22 @@ const setLoading = (state, loading) => ({ ...state,
   loading
 })
 
-const setList = (state, data) => {
-  const {
-    list,
-    page
-  } = data
-  const list = { ...state.list
-  }
-  if (!list[type]) list[type] = bookList
-  else list[type] = list[type].concat(bookList)
+const setPhotoList = (state, data) => {
+  const list = [...state.list].concat(data)
   return { ...state,
     list,
-    loading: false
+    loading: false,
+    currentPage: state.currentPage + 1
   }
 }
 
-const setCurrentBook = (state, current) => ({ ...state,
-  current,
-  loading: false
-})
-
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'BOOK_LOADING':
+    case 'PHOTO_LOADING':
       return setLoading(state, true)
-    case 'BOOK_LIST_SUCCESS':
-      return setBookList(state, action.data)
-    case 'BOOK_CURRENT_SUCCESS':
-      return setCurrentBook(state, action.data)
-    case 'BOOK_CURRENT_ERROR':
-    case 'BOOK_LIST_ERROR':
+    case 'PHOTO_NEXT_PAGE_SUCCESS':
+      return setPhotoList(state, action.data)
+    case 'PHOTO_ERROR':
       return setError(state, action.error)
 
     default:
