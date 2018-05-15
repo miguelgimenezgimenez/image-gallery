@@ -14,9 +14,13 @@ class ListView extends Component {
     }
   }
 
+  componentWillMount () {
+    console.log(this.node)
+  }
+
   componentDidMount () {
+    console.log(this.node)
     // eslint-disable-next-line
-    console.log(this.node.clientHeight)
     this.setState({
       availableHeight: this.node.clientHeight,
       availableWidth: this.node.clientWidth
@@ -44,10 +48,7 @@ class ListView extends Component {
 
     // Render only the items that are in the viewport by adding them to an array
     const startIndex = Math.floor(scrollTop / rowHeight)
-    console.log(availableHeight)
     const endIndex = startIndex + Math.ceil(availableHeight / rowHeight)
-    console.log(startIndex, 'stindex')
-    console.log(endIndex, 'endindex')
     let items = []
     if (list.length) {
       items = list.slice(startIndex, endIndex).map(item => (<Photo
@@ -80,7 +81,6 @@ class ListView extends Component {
         >
           {items}
         </div>
-
       </div>
     )
   }
@@ -94,6 +94,5 @@ ListView.propTypes = {
 const mapStateToProps = (state, ownProps) => ({
   list: state.photo.list,
   loading: state.photo.loading
-
 })
 export default connect(mapStateToProps)(ListView)
