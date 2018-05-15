@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run build && NODE_ENV=production node server",
     "build": "rm -rf ./dist && webpack --config webpack.config.prod.js",
+    "build:server":"webpack --config webpack.server.js  --watch",
     "dev": "parallelshell 'webpack --watch --mode development' 'nodemon  server'",
     "test": "NODE_ENV=test jest src/tests/**/*.js"
   },
