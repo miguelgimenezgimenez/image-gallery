@@ -41,22 +41,12 @@ class ListView extends Component {
     const startIndex = Math.floor(scrollTop / rowHeight)
     const endIndex = startIndex + Math.ceil(availableHeight / rowHeight)
     let items = []
-    let index = startIndex
     if (list.length) {
-      while (index < endIndex) {
-        if (list[index]) {
-          console.log(items, 'itemsss')
-          items = items.concat(<Item
-            type={this.props.type}
-            key={index}
-            style={{ height: rowHeight }}
-            item={list[index]}
-          />)
-        } else {
-          break
-        }
-        index++
-      }
+      items = list.slice(startIndex, endIndex).map(item => (<Item
+        key={item.id}
+        style={{ height: rowHeight }}
+        item={item}
+      />))
     }
 
     const { loading } = this.props
@@ -78,7 +68,7 @@ class ListView extends Component {
         >
           <List>{items}</List>
         </div>
-        {(!loading && !items.length) && <h1>No Matches </h1>}
+
       </div>
     )
   }

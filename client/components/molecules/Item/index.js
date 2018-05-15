@@ -2,18 +2,14 @@ import React, { Component } from 'react'
 import { ListItem } from 'material-ui/List'
 
 class Item extends Component {
-  handleClick (item) {
-    const { type } = this.props
-    this.props.history.push(`/${type}/${item}`)
-  }
-
   render () {
-    const primaryText = 'afsfds'
+    const { item } = this.props
+
     return (
 
       <ListItem
         // onClick={() => this.handleClick(item.name || item.title)}
-        primaryText={primaryText}
+        primaryText={item.id}
         // secondaryText={secondaryText}
         secondaryTextLines={2}
       />
