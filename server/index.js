@@ -1,18 +1,16 @@
-require('babel-register')
+import path from 'path'
+import express from 'express'
+import reactServer from 'react-dom/server'
+import React from 'react'
 
-const path = require('path')
-const express = require('express')
-const reactServer = require('react-dom/server')
-const React = require('react')
+import { Provider } from 'react-redux'
 
-const { Provider } = require('react-redux')
-
-const routes = require('./routes')
-const App = require('../client/App').default
-const errorMiddleware = require('./middlewares/error')
-const getStore = require('../utils/createStore').default
-const { listByPage } = require('./controllers/photo')
-const renderFullPage = require('../utils/renderFullPage').default
+import routes from './routes'
+import App from '../client/App'
+import errorMiddleware from './middlewares/error'
+import getStore from '../utils/createStore'
+import { listByPage } from './controllers/photo'
+import renderFullPage from '../utils/renderFullPage'
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -24,14 +22,9 @@ app.use('/api', routes)
 app.get('/', async (req, res) => {
   const store = getStore()
   const data = await listByPage(1)
-  store.dispatch({
-    type: 'PHOTO_NEXT_PAGE_SUCCESS',
-    data
-  })
-  const html = reactServer.renderToString(React.createElement(Provider, {
-    store
+  store.dispatch({ type: 'PHOTO_NEXT_PAGE_SUCCESS', data })
+  const html = reactServer.renderToString(<Provider store={store}><App /></Provider>)
 
-  }, React.createElement(App)))
   const preloadedState = store.getState()
   res.send(renderFullPage(html, preloadedState))
 })
