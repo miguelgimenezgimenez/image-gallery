@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import List from '../../molecules/List'
 
 import Photo from '../../molecules/Photo'
 
@@ -10,14 +9,17 @@ class ListView extends Component {
     super(props)
     this.state = {
       availableHeight: 0,
+      availableWidth: 0,
       scrollTop: 0
     }
   }
 
   componentDidMount () {
     // eslint-disable-next-line
+    console.log(this.node.clientHeight)
     this.setState({
-      availableHeight: this.node.clientHeight
+      availableHeight: this.node.clientHeight,
+      availableWidth: this.node.clientWidth
     })
   }
 
@@ -32,14 +34,20 @@ class ListView extends Component {
   }
 
   render () {
-    const { availableHeight, scrollTop } = this.state
-    const { list, rowHeight } = this.props
-    const numRows = list.length
-    const totalHeight = rowHeight * numRows
+    const { availableHeight, scrollTop, availableWidth } = this.state
+    const { list, rowHeight, itemWidth } = this.props
+
+    const itemsPerRow = Math.floor(availableWidth / (itemWidth + 100))
+    const numRows = list.length / itemsPerRow
+
+    const totalHeight = (rowHeight / numRows) * list.length
 
     // Render only the items that are in the viewport by adding them to an array
     const startIndex = Math.floor(scrollTop / rowHeight)
+    console.log(availableHeight)
     const endIndex = startIndex + Math.ceil(availableHeight / rowHeight)
+    console.log(startIndex, 'stindex')
+    console.log(endIndex, 'endindex')
     let items = []
     if (list.length) {
       items = list.slice(startIndex, endIndex).map(item => (<Photo
@@ -57,7 +65,9 @@ class ListView extends Component {
     return (
       <div
         onScroll={e => this.handleScroll(e)}
-        style={{ overflowY: 'scroll' }}
+        style={{
+          // height: '100vy',
+          overflowY: 'scroll' }}
         ref={node => (this.node = node)}
       >
         <div
@@ -77,7 +87,8 @@ class ListView extends Component {
 }
 
 ListView.propTypes = {
-  rowHeight: PropTypes.number.isRequired
+  rowHeight: PropTypes.number.isRequired,
+  itemWidth: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({

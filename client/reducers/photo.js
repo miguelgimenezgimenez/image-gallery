@@ -4,7 +4,12 @@ const INITIAL_STATE = {
   error: null,
   list: [],
   loading: false,
-  currentPhoto: { username: '', location: '', date: '', title: '' },
+  currentPhoto: {
+    username: '',
+    location: '',
+    date: '',
+    title: '' 
+  },
   currentPage: 1
 }
 const setError = (state, error) => ({ ...state,
@@ -42,7 +47,7 @@ export default (state = INITIAL_STATE, action) => {
     case 'PHOTO_NEXT_PAGE_SUCCESS':
       return setPhotoList(state, action.data)
     case 'PHOTO_INFO_SUCCESS':
-      return setCurrentPhoto(state, action.data)
+      return setCurrentPhoto(state, action.data.photo)
     case 'PHOTO_ERROR':
       return setError(state, action.error)
 

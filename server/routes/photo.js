@@ -13,7 +13,7 @@ router.get('/', asyncWrapper(async (req, res, next) => {
 router.get('/:id', asyncWrapper(async (req, res, next) => {
   const { id } = req.params
   const photoInfo = await photoController.photoInfo(id)
-  return res.json(photoInfo.photo)
+  return res.json(photoInfo)
 }))
 
 module.exports = router

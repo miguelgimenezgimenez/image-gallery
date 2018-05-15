@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { photoInfo } from '../../../actions/photo'
+import PhotoInfo from '../PhotoInfo'
 
 const imageStyle = {
-  height: 140,
-  width: 140
+  height: '100%',
+  width: '100%',
+  padding: 30
 }
 class Photo extends Component {
   constructor (props) {
@@ -16,20 +18,22 @@ class Photo extends Component {
 
   onMouseEnter (item) {
     photoInfo(this.props.dispatch, item.id)
+    this.setState({ active: true })
   }
 
   onMouseLeave () {
-
+    this.setState({ active: false })
   }
 
   render () {
-    const { item, current } = this.props
+    const { item } = this.props
     const imageUrl = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
 
     const style = {
       ...imageStyle,
       backgroundImage: `url(${imageUrl})`
     }
+
     return (
 
       <div
@@ -37,13 +41,12 @@ class Photo extends Component {
         onMouseEnter={() => this.onMouseEnter(item)}
         onMouseLeave={() => this.onMouseLeave()}
       >
-        {this.state.active && current.name}
+        {this.state.active &&
+        <PhotoInfo />}
       </div>
 
     )
   }
 }
-const mapStateToProps = state => ({
-  current: state.photo.current
-})
-export default connect(mapStateToProps)(Photo)
+
+export default connect()(Photo)

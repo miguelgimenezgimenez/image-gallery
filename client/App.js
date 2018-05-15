@@ -11,7 +11,7 @@ class App extends Component {
   render () {
     return (
       <MuiThemeProvider muiTheme={muiTheme} >
-        <ListView rowHeight={30} />
+        <ListView rowHeight={140} itemWidth={140} />
       </MuiThemeProvider>)
   }
 }
