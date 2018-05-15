@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { List } from 'material-ui/List'
 import { connect } from 'react-redux'
+import List from '../../molecules/List'
 
-import Item from '../../molecules/Item'
+import Photo from '../../molecules/Photo'
 
 class ListView extends Component {
   constructor (props) {
@@ -42,7 +42,7 @@ class ListView extends Component {
     const endIndex = startIndex + Math.ceil(availableHeight / rowHeight)
     let items = []
     if (list.length) {
-      items = list.slice(startIndex, endIndex).map(item => (<Item
+      items = list.slice(startIndex, endIndex).map(item => (<Photo
         key={item.id}
         style={{ height: rowHeight }}
         item={item}
@@ -57,16 +57,18 @@ class ListView extends Component {
     return (
       <div
         onScroll={e => this.handleScroll(e)}
-        style={{ height: '100vh', overflowY: 'scroll' }}
+        style={{ overflowY: 'scroll' }}
         ref={node => (this.node = node)}
       >
         <div
           style={{
             height: totalHeight - (startIndex * rowHeight),
-            paddingTop: startIndex * rowHeight
+            paddingTop: startIndex * rowHeight,
+            display: 'flex',
+            flexWrap: 'wrap'
           }}
         >
-          <List>{items}</List>
+          {items}
         </div>
 
       </div>

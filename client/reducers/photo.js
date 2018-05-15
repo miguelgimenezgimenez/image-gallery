@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   error: null,
   list: [],
   loading: false,
+  currentPhoto: { username: '', location: '', date: '', title: '' },
   currentPage: 1
 }
 const setError = (state, error) => ({ ...state,
@@ -24,6 +25,15 @@ const setPhotoList = (state, data) => {
     currentPage: state.currentPage + 1
   }
 }
+const setCurrentPhoto = (state, currentPhoto) => {
+  const username = _.get(currentPhoto, 'owner.username', '')
+  const date = _.get(currentPhoto, 'dates.taken', '')
+  const location = _.get(currentPhoto, 'owner.location', '')
+  const title = _.get(currentPhoto, 'title._content', '')
+  return { ...state,
+    currentPhoto: { username, location, title, date },
+    loading: false }
+}
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -31,6 +41,8 @@ export default (state = INITIAL_STATE, action) => {
       return setLoading(state, true)
     case 'PHOTO_NEXT_PAGE_SUCCESS':
       return setPhotoList(state, action.data)
+    case 'PHOTO_INFO_SUCCESS':
+      return setCurrentPhoto(state, action.data)
     case 'PHOTO_ERROR':
       return setError(state, action.error)
 

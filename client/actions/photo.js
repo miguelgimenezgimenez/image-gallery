@@ -3,10 +3,20 @@ import { apiUrl } from '../../config.json'
 
 export const searchNextPage = async (dispatch, page) => {
   dispatch({ type: 'PHOTO_LOADING' })
-  const url = `${apiUrl}&page=${page || 1}`
+  const url = `${apiUrl}/photo&page=${page || 1}`
   try {
     const data = await isoFetch(url)
     dispatch({ type: 'PHOTO_NEXT_PAGE_SUCCESS', data })
+  } catch (error) {
+    dispatch({ type: 'PHOTO_ERROR', error })
+  }
+}
+export const photoInfo = async (dispatch, id) => {
+  dispatch({ type: 'PHOTO_LOADING' })
+  const url = `${apiUrl}/photo/${id}`
+  try {
+    const data = await isoFetch(url)
+    dispatch({ type: 'PHOTO_INFO_SUCCESS', data })
   } catch (error) {
     dispatch({ type: 'PHOTO_ERROR', error })
   }
