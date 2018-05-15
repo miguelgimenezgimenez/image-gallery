@@ -1,22 +1,17 @@
 const path = require('path')
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.base')
+const webpackNodeExternals = require('webpack-node-externals')
 
-module.exports = {
+const config = {
   target: 'node',
   entry: './server/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
-    }
-    ]
-  },
-  devtool: 'eval-source-map'
+  externals: [webpackNodeExternals()]
 
 }
+
+module.exports = merge(baseConfig, config)
