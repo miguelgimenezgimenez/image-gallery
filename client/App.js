@@ -5,7 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import ListView from './components/organisms/ListView/index'
 
-const muiTheme = getMuiTheme({})
+const muiTheme = getMuiTheme({ userAgent: 'all' })
 
 class App extends Component {
   render () {
@@ -13,8 +13,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme} >
         <div >
           <ListView
-
-            rowHeight={280}
+            rowHeight={200}
           />
         </div>
       </MuiThemeProvider>)

@@ -35,7 +35,7 @@ class ListView extends Component {
 
   render () {
     const { availableHeight, scrollTop } = this.state
-    const { list, rowHeight, itemWidth, loading } = this.props
+    const { list, rowHeight, loading } = this.props
     /*  The Flex properties are set to have 4 items per row, so the total height will be divided by 4 */
     const totalHeight = rowHeight * Math.ceil(list.length / 4)
     // Render only the items that are in the viewport by adding them to an array
@@ -45,8 +45,6 @@ class ListView extends Component {
     if (list.length) {
       items = list.slice(startIndex, endIndex).map(item => (<PhotoContainer
         key={item.id}
-        height={rowHeight}
-        width={itemWidth}
         item={item}
       />))
     }

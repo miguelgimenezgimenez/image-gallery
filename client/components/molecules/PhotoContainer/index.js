@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
 import { photoInfo } from '../../../actions/photo'
 import PhotoInfo from '../PhotoInfo'
 
 const containerStyle = {
   margin: 10,
-  flex: '0 25%'
+  flex: '0 20%'
+}
+const infoStyle = {
+  textAlign: 'center',
+  width: '100%',
+  bottom: 0,
+  position: 'absolute'
+
 }
 
 class PhotoContainer extends Component {
@@ -28,7 +34,7 @@ class PhotoContainer extends Component {
   }
 
   render () {
-    const { item, height } = this.props
+    const { item } = this.props
     const imageUrl = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
 
     const imageStyle = {
@@ -36,21 +42,26 @@ class PhotoContainer extends Component {
       width: '100%',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
+      position: 'relative',
       backgroundImage: `url(${imageUrl})`
     }
 
     return (
-      <div style={containerStyle}>
+      <div
+        onMouseEnter={() => this.onMouseEnter(item)}
+        onMouseLeave={() => this.onMouseLeave()}
+        style={containerStyle}
+      >
         <div style={imageStyle} >
-          {this.state.active &&
-          <PhotoInfo />}
+
+          <div style={infoStyle}>
+            {this.state.active &&
+              <PhotoInfo />}
+          </div>
         </div>
       </div>
     )
   }
-}
-PhotoContainer.propTypes = {
-  height: PropTypes.number.isRequired
 }
 
 export default connect()(PhotoContainer)
