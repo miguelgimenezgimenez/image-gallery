@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import PhotoContainer from '../../molecules/PhotoContainer'
+import { searchNextPage } from '../../../actions/photo'
 
 class ListView extends Component {
   constructor (props) {
@@ -21,7 +22,8 @@ class ListView extends Component {
   }
 
   getNextSet () {
-    const { dispatch } = this.props
+    const { dispatch, currentPage } = this.props
+    searchNextPage(dispatch, currentPage)
   }
 
   handleScroll (event, totalHeight) {
@@ -63,9 +65,8 @@ class ListView extends Component {
       >
         <div
           style={{
-            // height: (totalHeight - (startIndex * rowHeight)) / 3,
-            height: totalHeight / 4,
-            paddingTop: Math.min(startIndex * rowHeight / 4),
+            height: totalHeight / 4 - (startIndex * 4 * rowHeight),
+            paddingTop: startIndex * rowHeight / 4,
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap'
@@ -84,6 +85,7 @@ ListView.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   list: state.photo.list,
-  loading: state.photo.loading
+  loading: state.photo.loading,
+  currentPage: state.photo.currentPage
 })
 export default connect(mapStateToProps)(ListView)
