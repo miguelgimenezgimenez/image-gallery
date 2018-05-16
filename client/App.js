@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import ListView from './components/organisms/ListView/index'
+import ListView from './components/organisms/ListView'
+import PhotoModal from './components/molecules/PhotoModal'
 
 const muiTheme = getMuiTheme({ userAgent: 'all' })
 
@@ -15,6 +16,7 @@ class App extends Component {
           <ListView
             rowHeight={200}
           />
+          <PhotoModal />
         </div>
       </MuiThemeProvider>)
   }

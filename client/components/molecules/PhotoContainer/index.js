@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { photoInfo } from '../../../actions/photo'
+import * as photoActions from '../../../actions/photo'
 import PhotoInfo from '../PhotoInfo'
 
 const containerStyle = {
   margin: 10,
-  flex: '0 20%'
+  flex: '0 20%',
+  cursor: 'pointer'
 }
 const infoStyle = {
   textAlign: 'center',
@@ -25,7 +26,7 @@ class PhotoContainer extends Component {
   }
 
   onMouseEnter (item) {
-    photoInfo(this.props.dispatch, item.id)
+    photoActions.setCurrentPhoto(this.props.dispatch, item.id)
     this.setState({ active: true })
   }
 
@@ -48,6 +49,7 @@ class PhotoContainer extends Component {
 
     return (
       <div
+        onClick={() => photoActions.toggleModal(this.props.dispatch)}
         onMouseEnter={() => this.onMouseEnter(item)}
         onMouseLeave={() => this.onMouseLeave()}
         style={containerStyle}

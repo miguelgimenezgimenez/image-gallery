@@ -8,8 +8,10 @@ const INITIAL_STATE = {
     username: '',
     location: '',
     date: '',
-    title: ''
+    title: '',
+    imageUrl: ''
   },
+  modalOpen: false,
   currentPage: 1
 }
 const setError = (state, error) => ({ ...state,
@@ -30,13 +32,18 @@ const setPhotoList = (state, data) => {
     currentPage: state.currentPage + 1
   }
 }
+const toggleModal = (state, modalOpen) => ({ ...state, modalOpen: !state.modalOpen })
+
 const setCurrentPhoto = (state, currentPhoto) => {
+  // eslint-disable-next-line
+  const imageUrl = `https://farm${currentPhoto.farm}.staticflickr.com/${currentPhoto.server}/${currentPhoto.id}_${currentPhoto.secret}.jpg`
+
   const username = _.get(currentPhoto, 'owner.username', '')
   const date = _.get(currentPhoto, 'dates.taken', '')
   const location = _.get(currentPhoto, 'owner.location', '')
   const title = _.get(currentPhoto, 'title._content', '')
   return { ...state,
-    currentPhoto: { username, location, title, date },
+    currentPhoto: { username, location, title, date, imageUrl },
     loading: false }
 }
 
@@ -46,10 +53,12 @@ export default (state = INITIAL_STATE, action) => {
       return setLoading(state, true)
     case 'PHOTO_NEXT_PAGE_SUCCESS':
       return setPhotoList(state, action.data)
-    case 'PHOTO_INFO_SUCCESS':
+    case 'SET_CURRENT_PHOTO':
       return setCurrentPhoto(state, action.data.photo)
     case 'PHOTO_ERROR':
       return setError(state, action.error)
+    case 'TOGGLE_MODAL':
+      return toggleModal(state, action.error)
 
     default:
       return state

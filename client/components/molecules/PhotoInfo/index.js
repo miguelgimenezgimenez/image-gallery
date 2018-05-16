@@ -13,7 +13,7 @@ class PhotoInfo extends Component {
             color: 'white',
             width: '100%',
             margin: 'auto',
-            opacity: '0.6',
+            opacity: '0.8',
             backgroundColor: 'gray' }}
         >
           { current.username }

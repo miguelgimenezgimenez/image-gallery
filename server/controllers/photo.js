@@ -6,7 +6,7 @@ export const listByPage = (page) => {
   return isoFetch(url)
 }
 
-export const photoInfo = (id) => {
+export const setCurrentPhoto = (id) => {
   const url = `${flickrApiUrl}&method=flickr.photos.getInfo&photo_id=${id}`
   return isoFetch(url)
 }
