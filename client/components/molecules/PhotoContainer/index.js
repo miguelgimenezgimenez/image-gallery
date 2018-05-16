@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
 import { photoInfo } from '../../../actions/photo'
 import PhotoInfo from '../PhotoInfo'
 
 const containerStyle = {
   margin: 10,
-  padding: 10,
-  flex: '1 25%'
+  flex: '0 25%'
 }
 
 class PhotoContainer extends Component {
@@ -31,7 +32,7 @@ class PhotoContainer extends Component {
     const imageUrl = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
 
     const imageStyle = {
-      height,
+      height: '100%',
       width: '100%',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
@@ -47,6 +48,9 @@ class PhotoContainer extends Component {
       </div>
     )
   }
+}
+PhotoContainer.propTypes = {
+  height: PropTypes.number.isRequired
 }
 
 export default connect()(PhotoContainer)

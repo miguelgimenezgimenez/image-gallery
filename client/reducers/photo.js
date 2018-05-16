@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     username: '',
     location: '',
     date: '',
-    title: '' 
+    title: ''
   },
   currentPage: 1
 }
