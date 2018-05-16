@@ -3,11 +3,10 @@ import { connect } from 'react-redux'
 import { photoInfo } from '../../../actions/photo'
 import PhotoInfo from '../PhotoInfo'
 
-const imageStyle = {
-  backgroundRepeat: 'no-repeat',
+const containerStyle = {
   margin: 10,
-  flex: '0 25%',
-  backgroundSize: 'cover'
+  padding: 10,
+  flex: '1 25%'
 }
 
 class PhotoContainer extends Component {
@@ -28,27 +27,24 @@ class PhotoContainer extends Component {
   }
 
   render () {
-    const { item, height, width } = this.props
+    const { item, height } = this.props
     const imageUrl = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
 
-    const style = {
-      // height,
-      // width,
-      ...imageStyle,
+    const imageStyle = {
+      height,
+      width: '100%',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
       backgroundImage: `url(${imageUrl})`
     }
 
     return (
-
-      <div
-        style={style}
-        onMouseEnter={() => this.onMouseEnter(item)}
-        onMouseLeave={() => this.onMouseLeave()}
-      >
-        {this.state.active &&
-        <PhotoInfo />}
+      <div style={containerStyle}>
+        <div style={imageStyle} >
+          {this.state.active &&
+          <PhotoInfo />}
+        </div>
       </div>
-
     )
   }
 }

@@ -9,7 +9,6 @@ class ListView extends Component {
     super(props)
     this.state = {
       availableHeight: 0,
-      availableWidth: 0,
       scrollTop: 0
     }
   }
@@ -17,8 +16,7 @@ class ListView extends Component {
   componentDidMount () {
     // eslint-disable-next-line
     this.setState({
-      availableHeight: this.node.clientHeight,
-      availableWidth: this.node.clientWidth
+      availableHeight: this.node.clientHeight
     })
   }
 
@@ -26,25 +24,21 @@ class ListView extends Component {
     const { dispatch } = this.props
   }
 
-  handleScroll (event) {
+  handleScroll (event, totalHeight) {
+    const maxScroll = Math.min(totalHeight - this.state.availableHeight, event.target.scrollTop)
     this.setState({
-      scrollTop: event.target.scrollTop
+      scrollTop: maxScroll
     })
   }
 
   render () {
-    const { availableHeight, scrollTop, availableWidth } = this.state
-    const { list, rowHeight, itemWidth } = this.props
-    const itemsPerRow = Math.floor(availableWidth / (itemWidth + 100)) || 1
-
-    const numRows = list.length / itemsPerRow
-
-    const totalHeight = (rowHeight / numRows) * list.length
-    // const totalHeight = rowHeight * list.length
-
+    const { availableHeight, scrollTop } = this.state
+    const { list, rowHeight, itemWidth, loading } = this.props
+    /*  The Flex properties are set to have 4 items per row, so the total height will be divided by 4 */
+    const totalHeight = rowHeight * Math.ceil(list.length / 4)
     // Render only the items that are in the viewport by adding them to an array
-    const startIndex = Math.floor(scrollTop / rowHeight)
-    const endIndex = startIndex + Math.ceil((rowHeight * itemsPerRow) / availableHeight)
+    const startIndex = Math.floor(scrollTop / rowHeight) * 4
+    const endIndex = startIndex + (Math.ceil((availableHeight / rowHeight)) * 4)
     let items = []
     if (list.length) {
       items = list.slice(startIndex, endIndex).map(item => (<PhotoContainer
@@ -55,24 +49,23 @@ class ListView extends Component {
       />))
     }
 
-    const { loading } = this.props
     // Lazy load the next set of items
     if (!loading && list.length - endIndex < 10) {
       this.getNextSet()
     }
     return (
       <div
-        onScroll={e => this.handleScroll(e)}
+        onScroll={e => this.handleScroll(e, totalHeight)}
         style={{
-          height: '100vy',
+          height: '100vh',
           overflowY: 'scroll' }}
         ref={node => (this.node = node)}
       >
         <div
           style={{
-            // width: 800,
-            height: totalHeight - (startIndex * rowHeight),
-            paddingTop: startIndex * rowHeight,
+            // height: (totalHeight - (startIndex * rowHeight)) / 3,
+            height: totalHeight / 4,
+            paddingTop: Math.min(startIndex * rowHeight / 4),
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap'
@@ -86,8 +79,7 @@ class ListView extends Component {
 }
 
 ListView.propTypes = {
-  rowHeight: PropTypes.number.isRequired,
-  itemWidth: PropTypes.number.isRequired
+  rowHeight: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
