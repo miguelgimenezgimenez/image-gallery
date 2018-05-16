@@ -19,7 +19,7 @@ async function renderFullPage () {
     <!doctype html>
     <html>
       <head>
-        <title>Let</title>
+        <title>LetGo Assessment</title>
       </head>
       <body>
         <div id="app">${html}</div>
