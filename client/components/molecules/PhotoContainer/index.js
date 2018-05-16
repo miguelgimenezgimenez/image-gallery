@@ -4,11 +4,13 @@ import { photoInfo } from '../../../actions/photo'
 import PhotoInfo from '../PhotoInfo'
 
 const imageStyle = {
-  height: '100%',
-  width: '100%',
-  padding: 30
+  backgroundRepeat: 'no-repeat',
+  margin: 10,
+  flex: '0 25%',
+  backgroundSize: 'cover'
 }
-class Photo extends Component {
+
+class PhotoContainer extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -26,10 +28,12 @@ class Photo extends Component {
   }
 
   render () {
-    const { item } = this.props
+    const { item, height, width } = this.props
     const imageUrl = `https://farm${item.farm}.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`
 
     const style = {
+      // height,
+      // width,
       ...imageStyle,
       backgroundImage: `url(${imageUrl})`
     }
@@ -49,4 +53,4 @@ class Photo extends Component {
   }
 }
 
-export default connect()(Photo)
+export default connect()(PhotoContainer)
