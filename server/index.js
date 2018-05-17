@@ -2,11 +2,11 @@ import express from 'express'
 import routes from './routes'
 import errorMiddleware from './middlewares/error'
 import renderFullPage from '../utils/renderFullPage'
-// import cors from 'cors'
+import cors from 'cors'
 
 const port = process.env.PORT || 3000
 const app = express()
-// app.use(cors)
+app.use(cors())
 app.use(express.static('public'))
 
 app.use('/api', routes)
