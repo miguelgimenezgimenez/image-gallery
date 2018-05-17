@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import * as photoActions from '../../../actions/photo'
-import PhotoInfo from '../PhotoInfo'
+import PhotoInfo from '../../atoms/PhotoInfo'
 
 const containerStyle = {
   margin: 10,

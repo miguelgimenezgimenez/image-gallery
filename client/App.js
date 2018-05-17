@@ -4,7 +4,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import ListView from './components/organisms/ListView'
-import PhotoModal from './components/molecules/PhotoModal'
+import PhotoModal from './components/atoms/PhotoModal'
 
 const muiTheme = getMuiTheme({ userAgent: 'all' })
 

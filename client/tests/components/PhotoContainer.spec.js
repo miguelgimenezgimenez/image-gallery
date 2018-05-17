@@ -2,11 +2,9 @@ import React from 'react'
 import { expect } from 'chai'
 // import sinon from 'sinon'
 import Enzyme, { mount } from 'enzyme'
-import { BrowserRouter } from 'react-router-dom'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Adapter from 'enzyme-adapter-react-16'
-import Item from '../../components/molecules/Item'
 
 Enzyme.configure({ adapter: new Adapter() })
 
