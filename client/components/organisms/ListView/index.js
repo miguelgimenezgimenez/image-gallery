@@ -6,6 +6,12 @@ import { BarLoader } from 'react-css-loaders'
 import PhotoContainer from '../../molecules/PhotoContainer'
 import { searchNextPage } from '../../../actions/photo'
 
+const loaderStyle = {
+  position: 'absolute',
+  top: '60% ',
+  left: '50% '
+}
+
 class ListView extends Component {
   constructor (props) {
     super(props)
@@ -38,18 +44,17 @@ class ListView extends Component {
     const { availableHeight, scrollTop } = this.state
     const { list, rowHeight, loading } = this.props
     /*  The Flex properties are set to have 4 items per row, so the total height will be divided by 4 */
-    const totalHeight = rowHeight * Math.ceil(list.length / 4)
     // Render only the items that are in the viewport by adding them to an array
     const startIndex = Math.floor(scrollTop / rowHeight) * 4
-    // the startindex && 4 is due to a bug... hard to explain here..
-    const endIndex = startIndex + (startIndex && 4) + (Math.ceil((availableHeight / rowHeight)) * 4)
+    const endIndex = startIndex + (startIndex && 1) + (Math.ceil((availableHeight / rowHeight)) * 4)
     let items = []
     if (list.length) {
-      items = list.slice(startIndex, endIndex).map(item => (<PhotoContainer
+      items = list.slice(startIndex, endIndex + (endIndex && 1)).map(item => (<PhotoContainer
         key={item.id}
         item={item}
       />))
     }
+    const totalHeight = rowHeight * Math.ceil(list.length / 4)
 
     // Lazy load the next set of items
     if (!loading && list.length - endIndex < 10) {
@@ -78,13 +83,7 @@ class ListView extends Component {
         {
           this.props.loading &&
           <BarLoader
-            style={
-              {
-                position: 'absolute',
-                top: '60% ',
-                left: '50% '
-              }
-            }
+            style={loaderStyle}
             color="#EC5281"
             size={
               22
@@ -97,7 +96,8 @@ class ListView extends Component {
 }
 
 ListView.propTypes = {
-  rowHeight: PropTypes.number.isRequired
+  rowHeight: PropTypes.number.isRequired,
+  list: PropTypes.arrayOf(PropTypes.shape).isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
