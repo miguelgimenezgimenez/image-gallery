@@ -1,8 +1,10 @@
 import express from 'express'
+import cors from 'cors'
+
 import routes from './routes'
+
 import errorMiddleware from './middlewares/error'
 import renderFullPage from '../utils/renderFullPage'
-import cors from 'cors'
 
 const port = process.env.PORT || 3000
 const app = express()
