@@ -1,7 +1,8 @@
 #  Photo Gallery
 
 
-Deployed project at http://photo.miguelgimenez.tech
+Deployed project at http://photo.miguelgimenez.tech (on Digital Ocean using nginx)
+
 ### Running the project
 
 **Install dependencies:**

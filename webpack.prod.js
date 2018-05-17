@@ -1,10 +1,15 @@
 const merge = require('webpack-merge')
-const baseConfig = require('./webpack.client')
+const path = require('path')
 const webpack = require('webpack')
+const baseConfig = require('./webpack.base')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 const config = {
-
+  entry: './client/index.js',
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {

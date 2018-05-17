@@ -11,6 +11,7 @@
     "test": "NODE_ENV=test jest src/tests/**/*.js",
     "build:server": "webpack --config webpack.server.js  --mode production",
     "build:client": "webpack --config webpack.prod.js  --mode production",
+    "build": "npm-run-all --parallel build:*",
     "start": "node dist/bundle.js"
   },
   "keywords": [],
