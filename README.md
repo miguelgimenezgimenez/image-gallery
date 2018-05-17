@@ -34,7 +34,7 @@ ListView component, this component also dispatches the functions to load more el
 
 
 I have rushed to do the project since I am working on many things simultaneously and I didnt have experience server rendering. There are a few bugs which I havent had time to fix, hope you dont find them...
-There is a lot more of testing and proptypes validation to be done.
+There is a lot more of testing and proptypes validation to be done, only had time to test actions and reducers.
 
 
 Thanks and feedback is appreciated .
