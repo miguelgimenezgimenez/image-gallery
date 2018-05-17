@@ -1,6 +1,7 @@
 import isoFetch from '../../utils/isoFetch'
-import { apiUrl } from '../../config.json'
+import config from '../../config.json'
 
+const { apiUrl } = config[process.env.NODE_ENV]
 export const searchNextPage = async (dispatch, page) => {
   dispatch({ type: 'PHOTO_LIST_LOADING' })
   const url = `${apiUrl}/photo?page=${page || 1}`

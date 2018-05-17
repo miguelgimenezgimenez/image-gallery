@@ -29,10 +29,10 @@
       "text",
       "text-summary"
     ],
-     "automock": false,
-     "setupFiles": [
-       "./setupJest.js"
-     ]
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   },
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -41,6 +41,7 @@
     "babel-regenerator-runtime": "^6.5.0",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
+    "cors": "^2.8.4",
     "es6-promise": "^4.2.4",
     "express": "^4.16.3",
     "fs-extra": "^6.0.1",

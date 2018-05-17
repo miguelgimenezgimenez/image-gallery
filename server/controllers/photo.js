@@ -1,5 +1,7 @@
 const isoFetch = require('../../utils/isoFetch')
-const { flickrApiUrl } = require('../../config.json')
+const config = require('../../config.json')
+
+const { flickrApiUrl } = config[process.env.NODE_ENV]
 
 export const listByPage = (page) => {
   const url = `${flickrApiUrl}&method=flickr.photos.getRecent&page=${page}`
