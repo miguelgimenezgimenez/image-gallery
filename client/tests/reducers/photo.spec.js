@@ -76,17 +76,3 @@ describe.only('Photo Reducer', () => {
     })
   })
 })
-
-//   it('should append items to the list', () => {
-//     const firstState = { ...INITIAL_STATE, list: { P: authorList } }
-//     const updatedState = { ...INITIAL_STATE, list: { P: authorList, D: authorListD } }
-//     authorReducer(firstState, { type: 'AUTHOR_LIST_SUCCESS', data: dataD }).should.deep.equal(updatedState)
-//   })
-
-//   it('should handle error', () => {
-//     const error = 'fetch error'
-//     const updatedState = { ...INITIAL_STATE, error }
-//     authorReducer(undefined, { type: 'AUTHOR_LIST_ERROR', error }).should.deep.equal(updatedState)
-//   })
-// })
-// })
