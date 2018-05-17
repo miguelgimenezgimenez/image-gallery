@@ -42,6 +42,7 @@ class PhotoModal extends React.Component {
           modal={false}
           open={modalOpen}
           onRequestClose={() => this.handleClose()}
+          autoScrollBodyContent
 
         >
           <div style={imageStyle} />

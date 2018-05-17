@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import * as photoActions from '../../../actions/photo'
 import PhotoInfo from '../PhotoInfo'
@@ -64,6 +65,14 @@ class PhotoContainer extends Component {
       </div>
     )
   }
+}
+PhotoContainer.propTypes = {
+  item: PropTypes.shape({
+    farm: PropTypes.number,
+    server: PropTypes.string,
+    secret: PropTypes.string,
+    id: PropTypes.string
+  }).isRequired
 }
 
 export default connect()(PhotoContainer)
