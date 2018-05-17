@@ -3,7 +3,8 @@ import _ from 'lodash'
 const INITIAL_STATE = {
   error: null,
   list: [],
-  loading: false,
+  infoLoading: false,
+  listLoading: false,
   currentPhoto: {
     username: '',
     location: '',
@@ -19,8 +20,8 @@ const setError = (state, error) => ({ ...state,
   loading: false
 })
 
-const setLoading = (state, loading) => ({ ...state,
-  loading
+const setLoading = (state, type, loading) => ({ ...state,
+  [type]: loading
 })
 
 const setPhotoList = (state, data) => {
@@ -28,7 +29,7 @@ const setPhotoList = (state, data) => {
   const list = [...state.list].concat(newPhotos)
   return { ...state,
     list,
-    loading: false,
+    listLoading: false,
     currentPage: state.currentPage + 1
   }
 }
@@ -44,13 +45,15 @@ const setCurrentPhoto = (state, currentPhoto) => {
   const title = _.get(currentPhoto, 'title._content', '')
   return { ...state,
     currentPhoto: { username, location, title, date, imageUrl },
-    loading: false }
+    infoLoading: false }
 }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'PHOTO_LOADING':
-      return setLoading(state, true)
+    case 'PHOTO_INFO_LOADING':
+      return setLoading(state, 'infoLoading', true)
+    case 'PHOTO_LIST_LOADING':
+      return setLoading(state, 'listLoading', true)
     case 'PHOTO_NEXT_PAGE_SUCCESS':
       return setPhotoList(state, action.data)
     case 'SET_CURRENT_PHOTO':

@@ -7,11 +7,20 @@ import { listByPage } from '../server/controllers/photo'
 
 async function renderFullPage () {
   const store = getStore()
-  const data = await listByPage(1)
-  store.dispatch({
-    type: 'PHOTO_NEXT_PAGE_SUCCESS',
-    data
-  })
+  let data
+  try {
+    data = await listByPage(1)
+    store.dispatch({
+      type: 'PHOTO_NEXT_PAGE_SUCCESS',
+      data
+    })
+  } catch (error) {
+    store.dispatch({
+      type: 'PHOTO_ERROR',
+      error
+    })
+  }
+
   const html = renderToString(<Provider store={store}><App /></Provider>)
 
   const preloadedState = store.getState()

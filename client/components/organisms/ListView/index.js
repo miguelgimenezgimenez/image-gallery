@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { BarLoader } from 'react-css-loaders'
 
 import PhotoContainer from '../../molecules/PhotoContainer'
 import { searchNextPage } from '../../../actions/photo'
@@ -40,7 +41,8 @@ class ListView extends Component {
     const totalHeight = rowHeight * Math.ceil(list.length / 4)
     // Render only the items that are in the viewport by adding them to an array
     const startIndex = Math.floor(scrollTop / rowHeight) * 4
-    const endIndex = startIndex + (Math.ceil((availableHeight / rowHeight)) * 4)
+    // the startindex && 4 is due to a bug... hard to explain here..
+    const endIndex = startIndex + (startIndex && 4) + (Math.ceil((availableHeight / rowHeight)) * 4)
     let items = []
     if (list.length) {
       items = list.slice(startIndex, endIndex).map(item => (<PhotoContainer
@@ -57,6 +59,7 @@ class ListView extends Component {
       <div
         onScroll={e => this.handleScroll(e, totalHeight)}
         style={{
+          width: '100%',
           height: '100vh',
           overflowY: 'scroll' }}
         ref={node => (this.node = node)}
@@ -72,6 +75,22 @@ class ListView extends Component {
         >
           {items}
         </div>
+        {
+          this.props.loading &&
+          <BarLoader
+            style={
+              {
+                position: 'absolute',
+                top: '60% ',
+                left: '50% '
+              }
+            }
+            color="#EC5281"
+            size={
+              22
+            }
+          />
+        }
       </div>
     )
   }
@@ -83,7 +102,7 @@ ListView.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   list: state.photo.list,
-  loading: state.photo.loading,
+  loading: state.photo.listLoading,
   currentPage: state.photo.currentPage
 })
 export default connect(mapStateToProps)(ListView)

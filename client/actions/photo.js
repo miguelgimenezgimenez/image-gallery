@@ -2,7 +2,7 @@ import isoFetch from '../../utils/isoFetch'
 import { apiUrl } from '../../config.json'
 
 export const searchNextPage = async (dispatch, page) => {
-  dispatch({ type: 'PHOTO_LOADING' })
+  dispatch({ type: 'PHOTO_LIST_LOADING' })
   const url = `${apiUrl}/photo?page=${page || 1}`
   try {
     const data = await isoFetch(url)
@@ -12,7 +12,7 @@ export const searchNextPage = async (dispatch, page) => {
   }
 }
 export const setCurrentPhoto = async (dispatch, id) => {
-  dispatch({ type: 'PHOTO_LOADING' })
+  dispatch({ type: 'PHOTO_INFO_LOADING' })
   const url = `${apiUrl}/photo/${id}`
   try {
     const data = await isoFetch(url)

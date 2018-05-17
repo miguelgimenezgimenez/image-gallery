@@ -6,7 +6,7 @@ class PhotoInfo extends Component {
   render () {
     const { loading, current } = this.props
 
-    return loading ? <BubbleSpinLoader size={5} color="orange" />
+    return loading ? <BubbleSpinLoader size={10} color="#EC5281" />
       : (
         <div
           style={{
@@ -21,7 +21,7 @@ class PhotoInfo extends Component {
   }
 }
 const mapStateToProps = state => ({
-  loading: state.photo.loading,
+  loading: state.photo.infoLoading,
   current: state.photo.currentPhoto
 })
 export default connect(mapStateToProps)(PhotoInfo)
