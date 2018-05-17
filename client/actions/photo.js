@@ -7,6 +7,7 @@ export const searchNextPage = async (dispatch, page) => {
   try {
     const data = await isoFetch(url)
     dispatch({ type: 'PHOTO_NEXT_PAGE_SUCCESS', data })
+    return Promise.resolve()
   } catch (error) {
     dispatch({ type: 'PHOTO_ERROR', error })
   }

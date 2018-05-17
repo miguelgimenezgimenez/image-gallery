@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-fetch')
-require('babel-polyfill')
+require('babel-polyfill') // For old browsers
 
 const isoFetch = async (url) => {
   const raw = await fetch(url)

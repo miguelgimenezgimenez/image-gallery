@@ -1,4 +1,9 @@
 module.exports = {
+  resolve: {
+    alias: {
+      'isomorphic-fetch': 'fetch-mock-forwarder'
+    }
+  },
   module: {
     rules: [{
       test: /\.js$/,
