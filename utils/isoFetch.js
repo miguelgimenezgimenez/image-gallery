@@ -1,5 +1,4 @@
 const fetch = require('isomorphic-fetch')
-const fetchMock = require('jest-fetch-mock')
 
 require('babel-polyfill') // For old browsers
 
@@ -10,4 +9,4 @@ const isoFetch = async (url) => {
   return json
 }
 
-module.exports = process.env.NODE_ENV === 'test' ? fetchMock : isoFetch
+module.exports = process.env.NODE_ENV === 'test' ? require('jest-fetch-mock') : isoFetch
